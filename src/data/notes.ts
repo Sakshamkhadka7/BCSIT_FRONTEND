@@ -1,0 +1,55 @@
+export interface Note {
+  id: string;
+  title: string;
+  subject: string;
+  subjectCode: string;
+  semester: number;
+  unit: number;
+  unitTitle: string;
+  description: string;
+  pages: number;
+  fileSize: string;
+  downloadUrl: string;
+  uploadedDate: string;
+  tags: string[];
+  isFeatured?: boolean;
+}
+
+export const notes: Note[] = [
+  // Semester 4 — Numerical Methods
+  { id: "nm-u1", title: "Unit 1: Errors in Computation", subject: "Numerical Methods", subjectCode: "CACS402", semester: 4, unit: 1, unitTitle: "Errors in Computation", description: "Types of errors, absolute & relative error, round-off and truncation errors, IEEE 754 floating point standard, error propagation with examples.", pages: 18, fileSize: "2.1 MB", downloadUrl: "#", uploadedDate: "2025-01-10", tags: ["errors", "IEEE754", "truncation", "round-off"], isFeatured: true },
+  { id: "nm-u2", title: "Unit 2: Root Finding Methods", subject: "Numerical Methods", subjectCode: "CACS402", semester: 4, unit: 2, unitTitle: "Root Finding Methods", description: "Bisection, False Position, Newton-Raphson, Secant, Fixed Point Iteration. Convergence criteria, iteration tables, worked examples with calculator steps.", pages: 32, fileSize: "3.8 MB", downloadUrl: "#", uploadedDate: "2025-01-15", tags: ["bisection", "newton-raphson", "secant", "root-finding"], isFeatured: true },
+  { id: "nm-u3", title: "Unit 3: Interpolation", subject: "Numerical Methods", subjectCode: "CACS402", semester: 4, unit: 3, unitTitle: "Interpolation", description: "Newton's forward/backward interpolation, Lagrange interpolation, divided difference. Includes difference tables and full worked examples.", pages: 28, fileSize: "3.2 MB", downloadUrl: "#", uploadedDate: "2025-01-20", tags: ["interpolation", "lagrange", "newton", "difference-table"] },
+  { id: "nm-u4", title: "Unit 4: Numerical Integration", subject: "Numerical Methods", subjectCode: "CACS402", semester: 4, unit: 4, unitTitle: "Numerical Integration", description: "Trapezoidal rule, Simpson's 1/3 and 3/8 rules, Gaussian quadrature with error analysis.", pages: 20, fileSize: "2.4 MB", downloadUrl: "#", uploadedDate: "2025-01-25", tags: ["integration", "trapezoidal", "simpsons", "gaussian"] },
+  { id: "nm-u5", title: "Unit 5: Numerical ODE", subject: "Numerical Methods", subjectCode: "CACS402", semester: 4, unit: 5, unitTitle: "Numerical ODE Solutions", description: "Euler's method, Modified Euler, Runge-Kutta 4th order, Predictor-Corrector methods.", pages: 22, fileSize: "2.7 MB", downloadUrl: "#", uploadedDate: "2025-02-01", tags: ["ODE", "euler", "runge-kutta", "predictor-corrector"] },
+
+  // Semester 4 — Microprocessor
+  { id: "mp-u1", title: "Unit 1: 8085 Architecture", subject: "Microprocessor", subjectCode: "CACS401", semester: 4, unit: 1, unitTitle: "8085 Architecture & Pin Diagram", description: "8085 internal architecture, pin configuration, bus organization, timing diagram, memory and I/O interfacing basics.", pages: 24, fileSize: "2.9 MB", downloadUrl: "#", uploadedDate: "2025-01-08", tags: ["8085", "architecture", "pin-diagram", "bus"], isFeatured: true },
+  { id: "mp-u2", title: "Unit 2: 8085 Instruction Set", subject: "Microprocessor", subjectCode: "CACS401", semester: 4, unit: 2, unitTitle: "8085 Instruction Set", description: "Complete 8085 instruction set — data transfer, arithmetic, logical, branch, and machine control instructions with examples.", pages: 30, fileSize: "3.5 MB", downloadUrl: "#", uploadedDate: "2025-01-12", tags: ["instruction-set", "assembly", "opcodes", "mnemonics"] },
+  { id: "mp-u3", title: "Unit 3: Assembly Language Programs", subject: "Microprocessor", subjectCode: "CACS401", semester: 4, unit: 3, unitTitle: "Programming the 8085", description: "Practical assembly language programs — loops, subroutines, arithmetic, BCD operations, sorting programs.", pages: 26, fileSize: "3.0 MB", downloadUrl: "#", uploadedDate: "2025-01-18", tags: ["assembly", "programs", "loops", "subroutines"] },
+  { id: "mp-u4", title: "Unit 4: Interrupts & Interfacing", subject: "Microprocessor", subjectCode: "CACS401", semester: 4, unit: 4, unitTitle: "Interrupts & Interfacing", description: "8085 interrupt structure, 8259 PIC, 8255 PPI, 8253 timer interfacing, serial communication with 8251.", pages: 28, fileSize: "3.3 MB", downloadUrl: "#", uploadedDate: "2025-01-22", tags: ["interrupts", "8255", "8259", "interfacing"] },
+  { id: "mp-u5", title: "Unit 5: Introduction to 8086", subject: "Microprocessor", subjectCode: "CACS401", semester: 4, unit: 5, unitTitle: "Introduction to 8086", description: "8086 architecture, segment registers, memory segmentation, addressing modes, comparison with 8085.", pages: 18, fileSize: "2.2 MB", downloadUrl: "#", uploadedDate: "2025-01-28", tags: ["8086", "segments", "addressing", "registers"] },
+
+  // Semester 4 — SE & PM
+  { id: "se-u1", title: "Unit 1: Software Process Models", subject: "Software Engineering & PM", subjectCode: "CACS403", semester: 4, unit: 1, unitTitle: "Software Process", description: "SDLC models (Waterfall, Incremental, Spiral), Agile methodology, Scrum framework, CMMI maturity levels.", pages: 22, fileSize: "2.6 MB", downloadUrl: "#", uploadedDate: "2025-01-09", tags: ["SDLC", "agile", "scrum", "waterfall"] },
+  { id: "se-u2", title: "Unit 2: Requirements Engineering", subject: "Software Engineering & PM", subjectCode: "CACS403", semester: 4, unit: 2, unitTitle: "Requirements Engineering", description: "Requirements elicitation techniques, SRS document writing (IEEE 830), use cases, user stories, validation.", pages: 24, fileSize: "2.8 MB", downloadUrl: "#", uploadedDate: "2025-01-14", tags: ["SRS", "requirements", "use-case", "elicitation"] },
+  { id: "se-u3", title: "Unit 3: Software Design", subject: "Software Engineering & PM", subjectCode: "CACS403", semester: 4, unit: 3, unitTitle: "System Design", description: "Architectural patterns, component design, UML diagrams (class, sequence, activity, state), design patterns.", pages: 30, fileSize: "3.6 MB", downloadUrl: "#", uploadedDate: "2025-01-19", tags: ["UML", "design-patterns", "architecture", "components"] },
+  { id: "se-u4", title: "Unit 4: Software Testing", subject: "Software Engineering & PM", subjectCode: "CACS403", semester: 4, unit: 4, unitTitle: "Software Testing", description: "Testing levels, black-box and white-box testing, test plan, test cases, TDD approach, defect tracking.", pages: 20, fileSize: "2.4 MB", downloadUrl: "#", uploadedDate: "2025-01-24", tags: ["testing", "black-box", "white-box", "TDD"] },
+  { id: "se-u5", title: "Unit 5: Project Management", subject: "Software Engineering & PM", subjectCode: "CACS403", semester: 4, unit: 5, unitTitle: "Project Management", description: "Project planning, WBS, scheduling (Gantt, PERT, CPM), risk management, cost estimation, COCOMO.", pages: 22, fileSize: "2.6 MB", downloadUrl: "#", uploadedDate: "2025-01-29", tags: ["project-management", "gantt", "PERT", "COCOMO"] },
+
+  // Semester 4 — DCN
+  { id: "dcn-u1", title: "Unit 1: Data Communication", subject: "Data Communication & Networking", subjectCode: "CACS404", semester: 4, unit: 1, unitTitle: "Data Communication", description: "Transmission fundamentals, line coding schemes (NRZ, Manchester), multiplexing, modulation, transmission media.", pages: 26, fileSize: "3.1 MB", downloadUrl: "#", uploadedDate: "2025-01-07", tags: ["line-coding", "modulation", "multiplexing", "transmission"] },
+  { id: "dcn-u2", title: "Unit 2: Network Models", subject: "Data Communication & Networking", subjectCode: "CACS404", semester: 4, unit: 2, unitTitle: "OSI and TCP/IP Models", description: "OSI 7-layer model with functions, TCP/IP 4-layer model, protocol comparison, encapsulation process.", pages: 22, fileSize: "2.7 MB", downloadUrl: "#", uploadedDate: "2025-01-11", tags: ["OSI", "TCP/IP", "protocols", "encapsulation"] },
+  { id: "dcn-u3", title: "Unit 3: Data Link Layer", subject: "Data Communication & Networking", subjectCode: "CACS404", semester: 4, unit: 3, unitTitle: "Data Link Layer", description: "Framing, error detection (CRC, parity), error correction (Hamming), flow control, ARQ protocols, Ethernet.", pages: 28, fileSize: "3.3 MB", downloadUrl: "#", uploadedDate: "2025-01-16", tags: ["CRC", "error-detection", "ARQ", "ethernet"] },
+  { id: "dcn-u4", title: "Unit 4: Network Layer", subject: "Data Communication & Networking", subjectCode: "CACS404", semester: 4, unit: 4, unitTitle: "Network Layer", description: "IP addressing, subnetting, CIDR, routing algorithms (Dijkstra, Bellman-Ford), IPv4 vs IPv6.", pages: 26, fileSize: "3.0 MB", downloadUrl: "#", uploadedDate: "2025-01-21", tags: ["IP", "subnetting", "routing", "IPv6"] },
+  { id: "dcn-u5", title: "Unit 5: Transport & Application Layer", subject: "Data Communication & Networking", subjectCode: "CACS404", semester: 4, unit: 5, unitTitle: "Transport & Application Layer", description: "TCP vs UDP, port numbers, socket programming basics, DNS, HTTP, FTP, SMTP, DHCP protocols.", pages: 24, fileSize: "2.8 MB", downloadUrl: "#", uploadedDate: "2025-01-26", tags: ["TCP", "UDP", "DNS", "HTTP", "application-layer"] },
+
+  // Semester 3
+  { id: "dsa-u1", title: "Unit 1: Introduction to DSA", subject: "Data Structures & Algorithms", subjectCode: "CACS301", semester: 3, unit: 1, unitTitle: "Introduction", description: "Algorithm analysis, Big O notation, time/space complexity, abstract data types, algorithm design paradigms.", pages: 16, fileSize: "1.9 MB", downloadUrl: "#", uploadedDate: "2024-07-10", tags: ["big-O", "complexity", "algorithms", "ADT"] },
+  { id: "dsa-u2", title: "Unit 2: Stacks & Queues", subject: "Data Structures & Algorithms", subjectCode: "CACS301", semester: 3, unit: 2, unitTitle: "Stacks & Queues", description: "Stack and queue operations, array/linked list implementation, applications: expression evaluation, BFS.", pages: 18, fileSize: "2.1 MB", downloadUrl: "#", uploadedDate: "2024-07-14", tags: ["stack", "queue", "LIFO", "FIFO"] },
+  { id: "dsa-u3", title: "Unit 3: Linked Lists", subject: "Data Structures & Algorithms", subjectCode: "CACS301", semester: 3, unit: 3, unitTitle: "Linked Lists", description: "Singly, doubly, and circular linked lists. Insertion, deletion, traversal, reversal with complete code.", pages: 22, fileSize: "2.5 MB", downloadUrl: "#", uploadedDate: "2024-07-18", tags: ["linked-list", "singly", "doubly", "circular"] },
+  { id: "dsa-u4", title: "Unit 4: Trees", subject: "Data Structures & Algorithms", subjectCode: "CACS301", semester: 3, unit: 4, unitTitle: "Trees", description: "Binary trees, Binary Search Trees, AVL trees with rotations, tree traversals (in/pre/post order), heaps.", pages: 30, fileSize: "3.5 MB", downloadUrl: "#", uploadedDate: "2024-07-22", tags: ["BST", "AVL", "traversal", "heap"] },
+];
+
+export const noteSubjects = [...new Set(notes.map(n => n.subject))].sort();
+export const noteSemesters = [...new Set(notes.map(n => n.semester))].sort((a, b) => a - b);
