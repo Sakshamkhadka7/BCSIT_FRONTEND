@@ -2,6 +2,8 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/AuthContext";
 
+const API=import.meta.env.VITE_API_URL
+
 export default function Login() {
   const navigate = useNavigate();
 
@@ -29,7 +31,7 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:3000/api/user/login", {
+      const response = await fetch(`${API}/user/login`, {
         method: "POST",
 
         headers: {

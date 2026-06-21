@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000/api";
+const BASE_URL =import.meta.env.VITE_API_URL
 
 function req(path: string, init?: RequestInit) {
   return fetch(`${BASE_URL}${path}`, { credentials: "include", ...init });
