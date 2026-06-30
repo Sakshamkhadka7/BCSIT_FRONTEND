@@ -73,7 +73,6 @@ function groupNotes(notes: NoteItem[]): Map<number, SubjectGroup[]> {
 
 const SEM_ROMAN = ["I","II","III","IV","V","VI","VII","VIII"];
 
-// Professional muted card accent colors (border-top accent only)
 const CARD_ACCENTS = [
   { border: "border-t-indigo-500",  badge: "bg-indigo-50 text-indigo-700",  icon: "text-indigo-500"  },
   { border: "border-t-sky-500",     badge: "bg-sky-50 text-sky-700",        icon: "text-sky-500"     },
@@ -102,7 +101,6 @@ export default function Notes() {
   const [selectedNote,    setSelectedNote]    = useState<NoteItem | null>(null);
   const [sidebarOpen,     setSidebarOpen]     = useState(true);
 
-  // Fetch saved note IDs for the logged-in user
   useEffect(() => {
     if (!user) return;
     savedNoteApi.getMySaved()
@@ -169,13 +167,18 @@ export default function Notes() {
         canonical="/notes"
       />
 
-      {/* Header */}
+      {/* ── Page header ── */}
       <div className="bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 lg:py-8 flex items-center justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold text-indigo-600 uppercase tracking-widest mb-1">Study Resources</p>
-            <h1 className="text-3xl font-bold text-slate-900">Notes</h1>
-            <p className="text-slate-500 text-sm mt-1">
+            {/* label */}
+            <p className="text-xs lg:text-sm font-semibold text-indigo-600 uppercase tracking-widest mb-1">
+              Study Resources
+            </p>
+            {/* page title */}
+            <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-slate-900">Notes</h1>
+            {/* subtitle */}
+            <p className="text-slate-500 text-sm lg:text-base mt-1">
               {loading ? "Loading…" : `${allNotes.length} notes · ${semesters.length} semesters`}
             </p>
           </div>
@@ -183,7 +186,7 @@ export default function Notes() {
             src="/bcsit1.png"
             alt=""
             aria-hidden
-            className="hidden lg:block h-40 w-auto object-contain shrink-0"
+            className="hidden lg:block h-40 xl:h-48 w-auto object-contain shrink-0"
             style={{ mixBlendMode: "multiply" }}
           />
         </div>
@@ -196,7 +199,7 @@ export default function Notes() {
                 <button
                   key={sem}
                   onClick={() => handleSemChange(sem)}
-                  className={`px-5 py-3 text-sm font-semibold border-b-2 transition-colors whitespace-nowrap ${
+                  className={`px-5 lg:px-7 py-3 lg:py-4 text-sm lg:text-base font-semibold border-b-2 transition-colors whitespace-nowrap ${
                     selectedSem === sem
                       ? "border-indigo-600 text-indigo-600 bg-indigo-50/60"
                       : "border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50"
@@ -215,14 +218,14 @@ export default function Notes() {
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center space-y-3">
             <div className="w-10 h-10 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mx-auto" />
-            <p className="text-slate-400 text-sm">Loading notes…</p>
+            <p className="text-slate-400 text-sm lg:text-base">Loading notes…</p>
           </div>
         </div>
       )}
 
       {fetchError && (
         <div className="flex-1 flex items-center justify-center">
-          <p className="text-red-500">{fetchError}</p>
+          <p className="text-red-500 lg:text-lg">{fetchError}</p>
         </div>
       )}
 
@@ -230,13 +233,13 @@ export default function Notes() {
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center py-20">
             <div className="text-6xl mb-4">📚</div>
-            <h2 className="text-xl font-bold text-slate-300">No notes uploaded yet</h2>
-            <p className="text-slate-400 text-sm mt-2">Notes uploaded by admin will appear here.</p>
+            <h2 className="text-xl lg:text-2xl font-bold text-slate-300">No notes uploaded yet</h2>
+            <p className="text-slate-400 text-sm lg:text-base mt-2">Notes uploaded by admin will appear here.</p>
           </div>
         </div>
       )}
 
-      {/* Main layout */}
+      {/* ── Main layout ── */}
       {!loading && !fetchError && semesters.length > 0 && (
         <div className="flex flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-6 gap-5">
 
@@ -245,25 +248,28 @@ export default function Notes() {
             className={`
               ${sidebarOpen ? "flex" : "hidden"} lg:flex
               flex-col shrink-0
-              w-full lg:w-72 xl:w-80
+              w-full lg:w-72 xl:w-88
               bg-white rounded-2xl border border-slate-200
               overflow-hidden
             `}
             style={{ alignSelf: "flex-start", position: "sticky", top: "80px", maxHeight: "calc(100vh - 120px)" }}
           >
-            <div className="px-5 py-4 bg-indigo-600 text-white">
-              <p className="text-xs font-semibold uppercase tracking-widest text-indigo-200 mb-0.5">
+            {/* Sidebar header */}
+            <div className="px-5 py-4 lg:px-6 lg:py-5 bg-indigo-600 text-white">
+              <p className="text-xs lg:text-sm font-semibold uppercase tracking-widest text-indigo-200 mb-0.5">
                 Semester {SEM_ROMAN[selectedSem - 1]}
               </p>
-              <h2 className="font-bold text-lg">
+              <h2 className="font-bold text-lg lg:text-xl">
                 {currentSubjects.length} Subject{currentSubjects.length !== 1 ? "s" : ""}
               </h2>
-              <p className="text-indigo-200 text-xs mt-0.5">{totalNotes} note{totalNotes !== 1 ? "s" : ""} available</p>
+              <p className="text-indigo-200 text-xs lg:text-sm mt-0.5">
+                {totalNotes} note{totalNotes !== 1 ? "s" : ""} available
+              </p>
             </div>
 
             <div className="overflow-y-auto flex-1 py-2">
               {currentSubjects.length === 0 ? (
-                <p className="text-slate-400 text-sm px-5 py-6">No notes for this semester.</p>
+                <p className="text-slate-400 text-sm lg:text-base px-5 py-6">No notes for this semester.</p>
               ) : (
                 currentSubjects.map(subject => (
                   <SubjectNav
@@ -287,7 +293,7 @@ export default function Notes() {
             {!sidebarOpen && selectedNote && (
               <button
                 onClick={() => { setSelectedNote(null); setSidebarOpen(true); }}
-                className="mb-4 flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-800 lg:hidden"
+                className="mb-4 flex items-center gap-2 text-sm lg:text-base font-medium text-indigo-600 hover:text-indigo-800 lg:hidden"
               >
                 ← Back to notes
               </button>
@@ -337,23 +343,27 @@ function SubjectNav({
     <div className="border-b border-slate-100 last:border-0">
       <button
         onClick={onToggle}
-        className={`w-full flex items-center gap-3 px-5 py-3.5 text-left transition-colors ${
+        className={`w-full flex items-center gap-3 px-5 lg:px-6 py-3.5 lg:py-4 text-left transition-colors ${
           isExpanded ? "bg-indigo-50" : "hover:bg-slate-50"
         }`}
       >
-        <span className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm shrink-0 transition-colors ${
+        <span className={`w-8 h-8 lg:w-10 lg:h-10 rounded-lg flex items-center justify-center text-sm lg:text-base shrink-0 transition-colors ${
           isExpanded ? "bg-indigo-600 text-white" : "bg-slate-100 text-slate-500"
         }`}>
           📚
         </span>
         <div className="flex-1 min-w-0">
-          <p className={`text-sm font-semibold leading-tight truncate ${isExpanded ? "text-indigo-700" : "text-slate-800"}`}>
+          {/* subject name */}
+          <p className={`text-sm lg:text-base font-semibold leading-tight truncate ${isExpanded ? "text-indigo-700" : "text-slate-800"}`}>
             {subject.subjectName}
           </p>
-          <p className="text-xs text-slate-400 mt-0.5">{subject.courseCode} · {noteCount} note{noteCount !== 1 ? "s" : ""}</p>
+          {/* course code + note count */}
+          <p className="text-xs lg:text-sm text-slate-400 mt-0.5">
+            {subject.courseCode} · {noteCount} note{noteCount !== 1 ? "s" : ""}
+          </p>
         </div>
         <svg
-          className={`w-4 h-4 shrink-0 text-slate-400 transition-transform ${isExpanded ? "rotate-180 text-indigo-500" : ""}`}
+          className={`w-4 h-4 lg:w-5 lg:h-5 shrink-0 text-slate-400 transition-transform ${isExpanded ? "rotate-180 text-indigo-500" : ""}`}
           fill="none" stroke="currentColor" viewBox="0 0 24 24"
         >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -364,7 +374,8 @@ function SubjectNav({
         <div className="bg-slate-50/70 pb-1">
           {subject.chapters.map(chapter => (
             <div key={chapter.contentId} className="px-4 pt-2">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-2 mb-1">
+              {/* chapter label */}
+              <p className="text-[10px] lg:text-xs font-bold text-slate-400 uppercase tracking-widest px-2 mb-1">
                 Ch {chapter.chapterNumber} · {chapter.chapterName}
               </p>
               {chapter.notes.map(note => {
@@ -374,7 +385,7 @@ function SubjectNav({
                     key={note.noteId}
                     onClick={() => (isAuth ? onSelectNote(note) : null)}
                     title={isAuth ? note.topic : "Sign in to view"}
-                    className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl mb-1 text-left transition-all ${
+                    className={`w-full flex items-center gap-2.5 px-3 py-2.5 lg:py-3 rounded-xl mb-1 text-left transition-all ${
                       active
                         ? "bg-indigo-600 text-white shadow-sm"
                         : isAuth
@@ -383,8 +394,9 @@ function SubjectNav({
                     }`}
                   >
                     <span className={`text-sm shrink-0 ${active ? "text-white" : "text-slate-400"}`}>📄</span>
-                    <span className="text-xs font-medium truncate leading-tight">{note.topic}</span>
-                    {!isAuth && <span className="ml-auto text-[10px] shrink-0 text-slate-300">🔒</span>}
+                    {/* note topic */}
+                    <span className="text-xs lg:text-sm font-medium truncate leading-tight">{note.topic}</span>
+                    {!isAuth && <span className="ml-auto text-[10px] lg:text-xs shrink-0 text-slate-300">🔒</span>}
                   </button>
                 );
               })}
@@ -409,22 +421,22 @@ function SubjectCards({
   if (subjects.length === 0) {
     return (
       <div className="flex items-center justify-center h-64 rounded-2xl border-2 border-dashed border-slate-200">
-        <p className="text-slate-400">No notes for this semester yet.</p>
+        <p className="text-slate-400 lg:text-lg">No notes for this semester yet.</p>
       </div>
     );
   }
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-slate-800 mb-1">Semester {semLabel}</h2>
-      <p className="text-slate-500 mb-6">Select a subject to browse notes</p>
+      {/* section heading */}
+      <h2 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-slate-800 mb-1">Semester {semLabel}</h2>
+      <p className="text-slate-500 text-sm lg:text-base mb-6">Select a subject to browse notes</p>
 
-      <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
+      <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5 lg:gap-6">
         {subjects.map((subject, i) => {
           const noteCount = subject.chapters.reduce((a, c) => a + c.notes.length, 0);
           const accent    = CARD_ACCENTS[i % CARD_ACCENTS.length];
           const firstNote = subject.chapters[0]?.notes[0];
-          // Abbreviation from course code or first letters of subject name
           const abbr = subject.courseCode || subject.subjectName.split(" ").map(w => w[0]).join("").slice(0, 4).toUpperCase();
 
           return (
@@ -432,63 +444,62 @@ function SubjectCards({
               key={subject.subjectId}
               className={`bg-white rounded-2xl border border-slate-200 border-t-4 ${accent.border} overflow-hidden hover:shadow-lg transition-all duration-200 group`}
             >
-              {/* Card header — clean white with decorative code watermark */}
-              <div className="relative px-5 pt-5 pb-4 overflow-hidden">
-                {/* Watermark */}
+              <div className="relative px-5 lg:px-6 pt-5 lg:pt-6 pb-4 overflow-hidden">
+                {/* watermark */}
                 <span
                   aria-hidden
                   className="absolute right-3 top-1 select-none pointer-events-none font-black text-slate-100 leading-none"
-                  style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)" }}
+                  style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
                 >
                   {abbr}
                 </span>
 
-                {/* Subject icon */}
-                <div className={`w-11 h-11 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-3 relative z-10`}>
-                  <svg className={`w-6 h-6 ${accent.icon}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {/* subject icon */}
+                <div className="w-11 h-11 lg:w-13 lg:h-13 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-3 relative z-10">
+                  <svg className={`w-6 h-6 lg:w-7 lg:h-7 ${accent.icon}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
                       d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                   </svg>
                 </div>
 
-                <h3 className="text-lg font-bold text-slate-900 leading-snug relative z-10 pr-12">
+                {/* subject name */}
+                <h3 className="text-lg lg:text-xl xl:text-2xl font-bold text-slate-900 leading-snug relative z-10 pr-12">
                   {subject.subjectName}
                 </h3>
                 {subject.courseCode && (
-                  <span className={`inline-block mt-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-full relative z-10 ${accent.badge}`}>
+                  <span className={`inline-block mt-1.5 text-xs lg:text-sm font-semibold px-2.5 py-0.5 rounded-full relative z-10 ${accent.badge}`}>
                     {subject.courseCode}
                   </span>
                 )}
               </div>
 
-              {/* Card body */}
-              <div className="px-5 pb-5 border-t border-slate-100 pt-4">
+              <div className="px-5 lg:px-6 pb-5 lg:pb-6 border-t border-slate-100 pt-4">
                 <div className="flex items-center gap-4 text-slate-500 mb-4">
-                  <span className="flex items-center gap-1.5 text-sm">
-                    <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span className="flex items-center gap-1.5 text-sm lg:text-base">
+                    <svg className="w-4 h-4 lg:w-5 lg:h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
                     </svg>
                     {subject.chapters.length} chapter{subject.chapters.length !== 1 ? "s" : ""}
                   </span>
-                  <span className="flex items-center gap-1.5 text-sm">
-                    <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span className="flex items-center gap-1.5 text-sm lg:text-base">
+                    <svg className="w-4 h-4 lg:w-5 lg:h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                     {noteCount} note{noteCount !== 1 ? "s" : ""}
                   </span>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex gap-2 lg:gap-3">
                   <button
                     onClick={() => onExpandSubject(subject.subjectId)}
-                    className="flex-1 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-colors"
+                    className="flex-1 py-2.5 lg:py-3 rounded-xl border border-slate-200 text-sm lg:text-base font-semibold text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-colors"
                   >
                     Browse
                   </button>
                   {firstNote && (
                     <button
                       onClick={() => onSelectNote(firstNote)}
-                      className={`flex-1 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 ${
+                      className={`flex-1 py-2.5 lg:py-3 rounded-xl text-sm lg:text-base font-semibold text-white transition-opacity hover:opacity-90 ${
                         accent.border.replace("border-t-", "bg-")
                       }`}
                     >
@@ -529,24 +540,24 @@ function PDFPanel({
     />
   );
 
-  // Fullscreen overlay
   if (fullscreen) {
     return (
       <div className="fixed inset-0 z-50 bg-slate-900 flex flex-col">
-        {/* Fullscreen top bar */}
         <div className="flex items-center justify-between px-5 py-3 bg-slate-800 border-b border-slate-700 shrink-0">
           <div className="min-w-0">
-            <p className="text-slate-400 text-xs truncate">
+            {/* fullscreen breadcrumb */}
+            <p className="text-slate-400 text-xs lg:text-sm truncate">
               {subject?.subjectName}{chapter ? ` · Ch ${chapter.chapterNumber}: ${chapter.chapterName}` : ""}
             </p>
-            <h2 className="text-white font-semibold text-base truncate">{note.topic}</h2>
+            {/* fullscreen note title */}
+            <h2 className="text-white font-semibold text-base lg:text-lg xl:text-xl truncate">{note.topic}</h2>
           </div>
           <div className="flex items-center gap-2 shrink-0 ml-4">
-            <a
-              href={note.noteFile}
+            
+            <a  href={note.noteFile}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-700 text-slate-300 text-xs font-medium hover:bg-slate-600 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-700 text-slate-300 text-xs lg:text-sm font-medium hover:bg-slate-600 transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -555,7 +566,7 @@ function PDFPanel({
             </a>
             <button
               onClick={() => setFullscreen(false)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs lg:text-sm font-medium transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -574,80 +585,97 @@ function PDFPanel({
       className="flex flex-col bg-white rounded-2xl border border-slate-200 overflow-hidden"
       style={{ minHeight: "calc(100vh - 160px)" }}
     >
-      {/* Panel header */}
-      <div className="flex items-start justify-between gap-4 px-6 py-4 border-b border-slate-100 bg-slate-50/60">
-        <div className="min-w-0">
-          <div className="flex items-center gap-2 flex-wrap mb-1">
-            {subject && (
-              <span className="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded-full">
-                {subject.subjectName}
-              </span>
-            )}
-            {chapter && (
-              <span className="text-xs text-slate-400">
-                Ch {chapter.chapterNumber} · {chapter.chapterName}
-              </span>
-            )}
-          </div>
-          <h2 className="font-bold text-slate-900 text-xl leading-tight">{note.topic}</h2>
-          {note.subTopics && (
-            <p className="text-slate-500 text-sm mt-1 line-clamp-2">{note.subTopics}</p>
+      {/* ── Panel header ── */}
+      <div className="flex flex-col gap-3 px-4 sm:px-6 lg:px-8 py-4 lg:py-5 border-b border-slate-100 bg-slate-50/60">
+
+        {/* Row 1: breadcrumb badges */}
+        <div className="flex items-center gap-2 min-w-0 overflow-hidden">
+          {subject && (
+            <span className="text-xs lg:text-sm font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded-full truncate min-w-0 shrink">
+              {subject.subjectName}
+            </span>
+          )}
+          {chapter && (
+            <span className="text-xs lg:text-sm text-slate-400 whitespace-nowrap shrink-0">
+              Ch {chapter.chapterNumber} · {chapter.chapterName}
+            </span>
           )}
         </div>
 
-        <div className="flex items-center gap-2 shrink-0">
-          {isAuth && (
-            <>
-              {/* Save / unsave bookmark */}
-              <button
-                onClick={() => onToggleSave(note.noteId)}
-                title={isSaved ? "Remove from saved" : "Save note"}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl border text-xs font-medium transition-colors ${
-                  isSaved
-                    ? "border-indigo-300 bg-indigo-50 text-indigo-600 hover:bg-indigo-100"
-                    : "border-slate-200 text-slate-500 hover:bg-slate-100"
-                }`}
-              >
-                <svg className="w-4 h-4" fill={isSaved ? "currentColor" : "none"} stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                </svg>
-                {isSaved ? "Saved" : "Save"}
-              </button>
-
-              {/* Fullscreen button */}
-              <button
-                onClick={() => setFullscreen(true)}
-                title="View fullscreen"
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 text-slate-500 text-xs font-medium hover:bg-slate-100 transition-colors"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                    d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-                </svg>
-                Fullscreen
-              </button>
-
-              {/* Download button */}
-              <a
-                href={note.noteFile}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-700 transition-colors"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-                Download
-              </a>
-            </>
+        {/* Row 2: note title + subtopics */}
+        <div className="min-w-0">
+          <h2 className="font-bold text-slate-900 text-lg sm:text-xl lg:text-2xl xl:text-3xl leading-tight break-words">
+            {note.topic}
+          </h2>
+          {note.subTopics && (
+            <p className="text-slate-500 text-sm lg:text-base mt-1 line-clamp-2">{note.subTopics}</p>
           )}
+        </div>
+
+        {/* Row 3: action buttons */}
+        {isAuth && (
+          <div className="flex items-center gap-2 lg:gap-3 flex-wrap">
+            {/* Save */}
+            <button
+              onClick={() => onToggleSave(note.noteId)}
+              title={isSaved ? "Remove from saved" : "Save note"}
+              className={`flex items-center gap-1.5 px-3 lg:px-4 py-2 rounded-xl border text-xs lg:text-sm font-medium transition-colors ${
+                isSaved
+                  ? "border-indigo-300 bg-indigo-50 text-indigo-600 hover:bg-indigo-100"
+                  : "border-slate-200 text-slate-500 hover:bg-slate-100"
+              }`}
+            >
+              <svg className="w-4 h-4 lg:w-5 lg:h-5 shrink-0" fill={isSaved ? "currentColor" : "none"} stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              </svg>
+              {isSaved ? "Saved" : "Save"}
+            </button>
+
+            {/* Fullscreen */}
+            <button
+              onClick={() => setFullscreen(true)}
+              title="View fullscreen"
+              className="flex items-center gap-1.5 px-3 lg:px-4 py-2 rounded-xl border border-slate-200 text-slate-500 text-xs lg:text-sm font-medium hover:bg-slate-100 transition-colors"
+            >
+              <svg className="w-4 h-4 lg:w-5 lg:h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+              </svg>
+              Fullscreen
+            </button>
+
+            {/* Download */}
+            
+            <a  href={note.noteFile}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-4 lg:px-5 py-2 rounded-xl bg-indigo-600 text-white text-xs lg:text-sm font-semibold hover:bg-indigo-700 transition-colors"
+            >
+              <svg className="w-4 h-4 lg:w-5 lg:h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download
+            </a>
+
+            {/* Close — desktop only */}
+            <button
+              onClick={onClose}
+              className="hidden lg:flex items-center gap-1.5 px-3 lg:px-4 py-2 rounded-xl border border-slate-200 text-xs lg:text-sm font-medium text-slate-500 hover:bg-slate-100 transition-colors ml-auto"
+            >
+              ✕ Close
+            </button>
+          </div>
+        )}
+
+        {/* Close for unauthenticated on desktop */}
+        {!isAuth && (
           <button
             onClick={onClose}
-            className="hidden lg:flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 text-xs font-medium text-slate-500 hover:bg-slate-100 transition-colors"
+            className="hidden lg:flex self-end items-center gap-1.5 px-3 lg:px-4 py-2 rounded-xl border border-slate-200 text-xs lg:text-sm font-medium text-slate-500 hover:bg-slate-100 transition-colors"
           >
             ✕ Close
           </button>
-        </div>
+        )}
       </div>
 
       {/* PDF viewer */}
@@ -662,14 +690,14 @@ function PDFPanel({
         </div>
       ) : (
         <div className="flex-1 flex flex-col items-center justify-center gap-4 py-20 text-center px-6">
-          <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center text-3xl">🔒</div>
+          <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-slate-100 flex items-center justify-center text-3xl lg:text-4xl">🔒</div>
           <div>
-            <h3 className="font-bold text-slate-800 text-xl">Sign in to view this note</h3>
-            <p className="text-slate-500 mt-1">Create a free account to access all study materials.</p>
+            <h3 className="font-bold text-slate-800 text-xl lg:text-2xl">Sign in to view this note</h3>
+            <p className="text-slate-500 lg:text-lg mt-1">Create a free account to access all study materials.</p>
           </div>
-          <a
-            href="/login"
-            className="mt-2 px-6 py-2.5 rounded-xl bg-indigo-600 text-white font-semibold text-sm hover:bg-indigo-700 transition-colors"
+          
+          <a  href="/login"
+            className="mt-2 px-6 lg:px-8 py-2.5 lg:py-3 rounded-xl bg-indigo-600 text-white font-semibold text-sm lg:text-base hover:bg-indigo-700 transition-colors"
           >
             Sign In
           </a>
